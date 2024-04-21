@@ -9,7 +9,13 @@ export const updateCart = (state) => {
   );
 
   // Save the cart to localStorage
-  localStorage.setItem("cart", JSON.stringify(state));
+  localStorage.setItem(
+    "cart",
+    JSON.stringify({
+      cartItems: state.cartItems,
+      itemsPrice: state.itemsPrice,
+    })
+  );
 
   return state;
 };
