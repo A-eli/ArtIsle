@@ -23,6 +23,8 @@ const ProductUpdate = () => {
   );
   const [price, setPrice] = useState(productData?.price || "");
   const [category, setCategory] = useState(productData?.category?._id || null); // Initialize with null
+  const [quantity, setQuantity] = useState(productData?.quantity || "");
+  const [stock, setStock] = useState(productData?.countInStock);
 
   // hook
   const navigate = useNavigate();
@@ -44,6 +46,7 @@ const ProductUpdate = () => {
       setDescription(productData.description);
       setPrice(productData.price);
       setCategory(productData.category?._id || null); // Handle null case
+      setQuantity(productData.quantity);
       setImage(productData.image);
     }
   }, [productData]);
@@ -75,6 +78,8 @@ const ProductUpdate = () => {
       formData.append("description", description);
       formData.append("price", price);
       formData.append("category", category || ""); // Handle null case
+      formData.append("quantity", quantity);
+      formData.append("countInStock", stock);
 
       // Update product using the RTK Query mutation
       const data = await updateProduct({ productId: params._id, formData });
@@ -175,6 +180,19 @@ const ProductUpdate = () => {
                 </div>
               </div>
 
+              <div className="flex flex-wrap">
+                <div>
+                  <label htmlFor="name block">Quantity</label> <br />
+                  <input
+                    type="number"
+                    min="1"
+                    className="p-4 mb-3 w-[30rem] border rounded-lg bg-[#101011] text-white mr-[5rem]"
+                    value={quantity}
+                    onChange={(e) => setQuantity(e.target.value)}
+                  />
+                </div>
+              </div>
+
               <label htmlFor="" className="my-5">
                 Description
               </label>
@@ -185,36 +203,48 @@ const ProductUpdate = () => {
                 onChange={(e) => setDescription(e.target.value)}
               />
 
-              <div>
-                <label htmlFor="">Category</label> <br />
-                <select
-                  placeholder="Choose Category"
-                  className="p-4 mb-3 w-[30rem] border rounded-lg bg-[#101011] text-white mr-[5rem]"
-                  onChange={(e) => setCategory(e.target.value)}
-                  value={category || ""}
-                >
-                  {categories?.map((c) => (
-                    <option key={c._id} value={c._id}>
-                      {c.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
+              <div className="flex justify-between">
+                <div>
+                  <label htmlFor="name block">Count In Stock</label> <br />
+                  <input
+                    type="text"
+                    className="p-4 mb-3 w-[30rem] border rounded-lg bg-[#101011] text-white "
+                    value={stock}
+                    onChange={(e) => setStock(e.target.value)}
+                  />
+                </div>
 
-            <div>
-              <button
-                onClick={handleSubmit}
-                className="py-4 px-10 mt-5 rounded-lg text-lg font-bold bg-green-600 mr-6"
-              >
-                Update
-              </button>
-              <button
-                onClick={handleDelete}
-                className="py-4 px-10 mt-5 rounded-lg text-lg font-bold bg-pink-600"
-              >
-                Delete
-              </button>
+                <div>
+                  <label htmlFor="">Category</label> <br />
+                  <select
+                    placeholder="Choose Category"
+                    className="p-4 mb-3 w-[30rem] border rounded-lg bg-[#101011] text-white mr-[5rem]"
+                    onChange={(e) => setCategory(e.target.value)}
+                    value={category || ""}
+                  >
+                    {categories?.map((c) => (
+                      <option key={c._id} value={c._id}>
+                        {c.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              <div className="">
+                <button
+                  onClick={handleSubmit}
+                  className="py-4 px-10 mt-5 rounded-lg text-lg font-bold bg-green-600 mr-6"
+                >
+                  Update
+                </button>
+                <button
+                  onClick={handleDelete}
+                  className="py-4 px-10 mt-5 rounded-lg text-lg font-bold bg-pink-600"
+                >
+                  Delete
+                </button>
+              </div>
             </div>
           </div>
         </div>
