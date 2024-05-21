@@ -2,6 +2,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { FaTrash } from "react-icons/fa";
 import { addToCart, removeFromCart } from "../redux/features/cart/cartSlice";
+// import KhaltiCheckout from "khalti-checkout-web";
+// import config from "../khalti/khalticonfig";
 
 const Cart = () => {
   const navigate = useNavigate();
@@ -20,7 +22,10 @@ const Cart = () => {
 
   const checkoutHandler = () => {
     navigate("/login?redirect=/shipping");
+    // checkout.show({ amount: 1000 });
   };
+
+  // let checkout = new KhaltiCheckout(config);
 
   return (
     <>
@@ -100,7 +105,7 @@ const Cart = () => {
                     disabled={cartItems.length === 0}
                     onClick={checkoutHandler}
                   >
-                    Proceed To Checkout
+                    Proceed to Checkout
                   </button>
                 </div>
               </div>

@@ -1,36 +1,107 @@
-#navigation-container {
-  width: 4%;
-  transition: width 0.3s ease-in-out;
-  overflow: hidden; /* Hide overflowing content during transition */
+.navigation-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px;
+  background-color: rgb(240, 141, 60);
+  color: white;
 }
 
-#navigation-container:hover {
-  width: 15%;
+.navigation-links {
+  display: flex;
+  align-items: center;
 }
 
-/* Initially hide nav-item-name */
+.nav-link {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+  text-decoration: none;
+  color: white;
+}
+
+.nav-link svg {
+  margin-right: 5px;
+}
+
 .nav-item-name {
-  display: none;
-  transition: opacity 0.2s ease-in-out; /* Add opacity transition */
+  margin-top: 3px;
 }
 
-#navigation-container:hover .nav-item-name {
-  display: block;
-  opacity: 1;
+.badge {
+  background-color: pink;
+  color: white;
+  padding: 3px 5px;
+  border-radius: 50%;
+  font-size: 14px;
+  margin-left: 5px;
 }
 
-.search-input {
-  display: none;
-  opacity: 0;
-  transition: opacity 0.2s ease-in-out; /* Add opacity transition */
+.user-section .dropdown {
+  position: relative;
 }
 
-#navigation-container:hover .search-input {
-  display: block;
-  opacity: 1;
+.dropdown-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  color: white;
 }
 
-#navigation-container:hover .search-icon {
-  display: none;
-  transition: opacity 0.2s ease-in-out; /* Add opacity transition */
+.dropdown-icon {
+  width: 20px;
+  height: 20px;
+  margin-left: 5px;
+  transition: transform 0.3s ease;
+}
+
+.dropdown-icon.open {
+  transform: rotate(180deg);
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: black;
+  color: white;
+  list-style: none;
+  padding: 10px 0;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.dropdown-menu li {
+  padding: 10px;
+}
+
+.dropdown-menu li a,
+.dropdown-menu button {
+  color: white;
+  text-decoration: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.auth-links {
+  display: flex;
+}
+
+.auth-link {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+  text-decoration: none;
+  color: white;
+}
+
+.auth-link svg {
+  margin-right: 5px;
+}
+
+.username {
+  margin-right: 5px;
 }

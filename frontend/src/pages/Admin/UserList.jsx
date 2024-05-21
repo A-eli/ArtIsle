@@ -13,12 +13,12 @@ const UserList = () => {
   const { data: users, refetch, isLoading, error } = useGetUsersQuery();
 
   const [deleteUser] = useDeleteUserMutation();
+  const [updateUser] = useUpdateUserMutation();
 
   const [editableUserId, setEditableUserId] = useState(null);
   const [editableUserName, setEditableUserName] = useState("");
   const [editableUserEmail, setEditableUserEmail] = useState("");
-
-  const [updateUser] = useUpdateUserMutation();
+  const [editableUserAdmin, setEditableUserAdmin] = useState(false); // New state for admin editing
 
   useEffect(() => {
     refetch();
@@ -35,10 +35,11 @@ const UserList = () => {
     }
   };
 
-  const toggleEdit = (id, username, email) => {
+  const toggleEdit = (id, username, email, isAdmin) => {
     setEditableUserId(id);
     setEditableUserName(username);
     setEditableUserEmail(email);
+    setEditableUserAdmin(isAdmin); // Set admin status when toggling edit
   };
 
   const updateHandler = async (id) => {
@@ -47,6 +48,7 @@ const UserList = () => {
         userId: id,
         username: editableUserName,
         email: editableUserEmail,
+        isAdmin: editableUserAdmin, // Include admin status in the update
       });
       setEditableUserId(null);
       refetch();
@@ -65,9 +67,8 @@ const UserList = () => {
           {error?.data?.message || error.error}
         </Message>
       ) : (
-        <div className="flex flex-col md:flex-row">
-          {/* <AdminMenu /> */}
-          <table className="w-full md:w-4/5 mx-auto">
+        <div className="overflow-x-auto">
+          <table className="w-full table-auto">
             <thead>
               <tr>
                 <th className="px-4 py-2 text-left">ID</th>
@@ -102,7 +103,12 @@ const UserList = () => {
                         {user.username}{" "}
                         <button
                           onClick={() =>
-                            toggleEdit(user._id, user.username, user.email)
+                            toggleEdit(
+                              user._id,
+                              user.username,
+                              user.email,
+                              user.isAdmin
+                            )
                           }
                         >
                           <FaEdit className="ml-[1rem]" />
@@ -131,7 +137,12 @@ const UserList = () => {
                         <a href={`mailto:${user.email}`}>{user.email}</a>{" "}
                         <button
                           onClick={() =>
-                            toggleEdit(user._id, user.name, user.email)
+                            toggleEdit(
+                              user._id,
+                              user.name,
+                              user.email,
+                              user.isAdmin
+                            )
                           }
                         >
                           <FaEdit className="ml-[1rem]" />
@@ -140,7 +151,13 @@ const UserList = () => {
                     )}
                   </td>
                   <td className="px-4 py-2">
-                    {user.isAdmin ? (
+                    {editableUserId === user._id ? (
+                      <input
+                        type="checkbox"
+                        checked={editableUserAdmin}
+                        onChange={(e) => setEditableUserAdmin(e.target.checked)}
+                      />
+                    ) : user.isAdmin ? (
                       <FaCheck style={{ color: "green" }} />
                     ) : (
                       <FaTimes style={{ color: "red" }} />

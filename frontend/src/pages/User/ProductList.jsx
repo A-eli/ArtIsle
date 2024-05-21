@@ -80,7 +80,7 @@ const ProductList = () => {
           )}
 
           <div className="mb-3">
-            <label className="border text-white px-4 block w-full text-center rounded-lg cursor-pointer font-bold py-11">
+            <label className="border border-black text-black px-4 block w-full text-center rounded-lg cursor-pointer py-11">
               {image ? image.name : "Upload Image"}
 
               <input
@@ -88,7 +88,7 @@ const ProductList = () => {
                 name="image"
                 accept="image/*"
                 onChange={uploadFileHandler}
-                className={!image ? "hidden" : "text-white"}
+                className={!image ? "hidden" : "text-black"}
               />
             </label>
           </div>
@@ -99,7 +99,7 @@ const ProductList = () => {
                 <label htmlFor="name">Name</label> <br />
                 <input
                   type="text"
-                  className="p-4 mb-3 w-[30rem] border rounded-lg bg-[#101011] text-white"
+                  className="p-4 mb-3 w-[30rem] border rounded-lg bg-white text-black" // Changed styles here
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                 />
@@ -108,7 +108,7 @@ const ProductList = () => {
                 <label htmlFor="price">Price</label> <br />
                 <input
                   type="number"
-                  className="p-4 mb-3 w-[30rem] border rounded-lg bg-[#101011] text-white"
+                  className="p-4 mb-3 w-[30rem] border rounded-lg bg-white text-black" // Changed styles here
                   value={price}
                   onChange={(e) => setPrice(e.target.value)}
                 />
@@ -120,7 +120,7 @@ const ProductList = () => {
             </label>
             <textarea
               type="text"
-              className="p-2 mb-3 bg-[#101011] border rounded-lg w-[95%] text-white"
+              className="p-2 mb-3 bg-white border rounded-lg w-[95%] text-black" // Changed styles here
               value={description}
               onChange={(e) => setDescription(e.target.value)}
             ></textarea>
@@ -130,16 +130,16 @@ const ProductList = () => {
                 <label htmlFor="name block">Quantity</label> <br />
                 <input
                   type="number"
-                  className="p-4 mb-3 w-[30rem] border rounded-lg bg-[#101011] text-white"
+                  className="p-4 mb-3 w-[30rem] border rounded-lg bg-white text-black" // Changed styles here
                   value={quantity}
                   onChange={(e) => setQuantity(e.target.value)}
                 />
               </div>
 
-              <div>
+              <div className=" two ml-10">
                 <label htmlFor="category">Category</label> <br />
                 <select
-                  className="p-4 ml-10 mb-3 w-[30rem] border rounded-lg bg-[#101011] text-white"
+                  className="p-4 mb-3 w-[30rem] border rounded-lg bg-white text-black" // Changed styles here
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}
                 >
@@ -158,7 +158,7 @@ const ProductList = () => {
                 <label htmlFor="name block">Count In Stock</label> <br />
                 <input
                   type="text"
-                  className="p-4 mb-3 w-[30rem] border rounded-lg bg-[#101011] text-white"
+                  className="p-4 mb-3 w-[30rem] border rounded-lg bg-white text-black" // Changed styles here
                   value={stock}
                   onChange={(e) => setStock(e.target.value)}
                 />
