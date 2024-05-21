@@ -47,8 +47,9 @@ const Navigation = () => {
     <div className="navigation-container">
       <div className="navigation-links">
         <Link to="/" className="nav-link">
-          <AiOutlineHome size={26} />
-          <span className="nav-item-name">Home</span>
+          <Link to="/" className="nav-link">
+            <span className="nav-item-name text-xl font-bold">ARTISLE</span>
+          </Link>
         </Link>
 
         <Link to="/shop" className="nav-link">

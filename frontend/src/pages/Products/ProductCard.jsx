@@ -17,7 +17,7 @@ const ProductCard = ({ p }) => {
   };
 
   return (
-    <div className="max-w-sm relative bg-white rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+    <div className="max-w-sm h-full relative bg-white rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
       <section className="relative">
         <Link to={`/product/${p._id}`}>
           <img
@@ -34,12 +34,7 @@ const ProductCard = ({ p }) => {
         <div className="flex justify-between">
           <h5 className="mb-2 text-xl text-black dark:text-white">{p?.name}</h5>
 
-          <p className="font-semibold text-pink-500">
-            {p?.price?.toLocaleString("en-NP", {
-              style: "currency",
-              currency: "NPR",
-            })}
-          </p>
+          <p className="font-semibold text-black">${p?.price.toFixed(2)}</p>
         </div>
 
         <p className="mb-3 font-normal text-gray-700 dark:text-gray-300">
@@ -49,7 +44,7 @@ const ProductCard = ({ p }) => {
         <section className="flex justify-between items-center">
           <Link
             to={`/product/${p._id}`}
-            className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-pink-700 rounded-lg hover:bg-pink-800 focus:ring-4 focus:outline-none focus:ring-pink-300 dark:bg-pink-600 dark:hover:bg-pink-700 dark:focus:ring-pink-800"
+            className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-crimson rounded-lg hover:bg-crimson focus:ring-4 focus:outline-none focus:ring-crimson dark:bg-crimson dark:hover:bg-crimson dark:focus:ring-crimson"
           >
             Read More
             <svg

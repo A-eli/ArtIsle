@@ -9,6 +9,8 @@ import { toast } from "react-toastify";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -27,8 +29,37 @@ const Login = () => {
     }
   }, [navigate, redirect, userInfo]);
 
+  const validateEmail = (email) => {
+    const re = /\S+@\S+\.\S+/;
+    return re.test(email);
+  };
+
+  const validatePassword = (password) => {
+    return password.length >= 6;
+  };
+
   const submitHandler = async (e) => {
     e.preventDefault();
+
+    let valid = true;
+    if (!validateEmail(email)) {
+      setEmailError("Please enter a valid email address.");
+      valid = false;
+    } else {
+      setEmailError("");
+    }
+
+    if (!validatePassword(password)) {
+      setPasswordError("Password must be at least 6 characters long.");
+      valid = false;
+    } else {
+      setPasswordError("");
+    }
+
+    if (!valid) {
+      return;
+    }
+
     try {
       const res = await login({ email, password }).unwrap();
       console.log(res);
@@ -40,75 +71,75 @@ const Login = () => {
   };
 
   return (
-    <div>
-      <section className="pl-[10rem] flex flex-wrap">
-        <div className="mr-[4rem] mt-[5rem]">
-          <h1 className="text-2xl font-semibold mb-4">Sign In</h1>
+    <div className="flex justify-center items-center h-screen bg-gray-100">
+      <div className="bg-white p-12 rounded-lg shadow-md w-full max-w-lg">
+        <h1 className="text-2xl font-semibold mb-6 text-center">Sign In</h1>
 
-          <form onSubmit={submitHandler} className="container w-[40rem]">
-            <div className="my-[2rem]">
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-white"
-              >
-                Email Address
-              </label>
-              <input
-                type="email"
-                id="email"
-                className="mt-1 p-2 border rounded w-full"
-                placeholder="Enter email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </div>
-
-            <div className="mb-4">
-              <label
-                htmlFor="password"
-                className="block text-sm font-medium text-white"
-              >
-                Password
-              </label>
-              <input
-                type="password"
-                id="password"
-                className="mt-1 p-2 border rounded w-full"
-                placeholder="Enter password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </div>
-
-            <button
-              disabled={isLoading}
-              type="submit"
-              className="bg-orange-500 text-white px-4 py-2 rounded cursor-pointer my-[1rem]"
+        <form onSubmit={submitHandler}>
+          <div className="my-4">
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium text-black"
             >
-              {isLoading ? "Signing In..." : "Sign In"}
-            </button>
-
-            {isLoading && <Loader />}
-          </form>
-
-          <div className="mt-4">
-            <p className="text-black">
-              New Customer?{" "}
-              <Link
-                to={redirect ? `/register?redirect=${redirect}` : "/register"}
-                className="text-orange-500 hover:underline"
-              >
-                Register
-              </Link>
-            </p>
+              Email Address
+            </label>
+            <input
+              type="email"
+              id="email"
+              className="mt-1 p-3 border rounded w-full"
+              placeholder="Enter email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            {emailError && <p className="text-red-500 text-sm">{emailError}</p>}
           </div>
+
+          <div className="mb-6">
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium text-black"
+            >
+              Password
+            </label>
+            <input
+              type="password"
+              id="password"
+              className="mt-1 p-3 border rounded w-full"
+              placeholder="Enter password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            {passwordError && <p className="text-red-500 text-sm">{passwordError}</p>}
+          </div>
+
+          <button
+            disabled={isLoading}
+            type="submit"
+            className="bg-crimson text-white px-6 py-3 rounded cursor-pointer my-1 w-full"
+          >
+            {isLoading ? "Signing In..." : "Sign In"}
+          </button>
+
+          {isLoading && <Loader />}
+        </form>
+
+        <div className="mt-6">
+          <p className="text-black">
+            <Link to="/forgot-password" className="text-crimson hover:underline">
+              Forgot Password?
+            </Link>
+          </p>
+          <p className="text-black mt-2">
+            New Customer?{" "}
+            <Link
+              to={redirect ? `/register?redirect=${redirect}` : "/register"}
+              className="text-crimson hover:underline"
+            >
+              Register
+            </Link>
+          </p>
         </div>
-        <img
-          src="https://images.unsplash.com/flagged/photo-1572392640988-ba48d1a74457?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D/photo-1618005182384-a83a8bd57fbe?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1964&q=80"
-          alt=""
-          className="h-[65rem] w-[59%] xl:block md:hidden sm:hidden rounded-lg"
-        />
-      </section>
+      </div>
     </div>
   );
 };
